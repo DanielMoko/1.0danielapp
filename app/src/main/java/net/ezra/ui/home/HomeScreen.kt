@@ -8,6 +8,7 @@ package net.ezra.ui.home
 
 
 import android.annotation.SuppressLint
+import android.content.ClipData.Item
 import android.content.Intent
 import android.icu.text.CaseMap.Title
 import android.net.Uri
@@ -19,9 +20,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CutCornerShape
 //noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.BottomNavigation
@@ -32,7 +35,9 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -49,9 +54,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -68,21 +75,19 @@ import net.ezra.navigation.ROUTE_LOGIN
 import net.ezra.navigation.ROUTE_SEARCH
 import net.ezra.navigation.ROUTE_VIEW_PROD
 import net.ezra.navigation.ROUTE_VIEW_STUDENTS
+import net.ezra.ui.students.BottomBar
 
 
 data class Screen(val title: String, val icon: Int)
 @RequiresApi(Build.VERSION_CODES.Q)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "ResourceAsColor")
 @OptIn(ExperimentalMaterial3Api::class)
+@Preview(showBackground = true)
 @Composable
 fun HomeScreen(navController: NavHostController) {
     val Greet= LocalContext.current
     var isDrawerOpen by remember { mutableStateOf(false) }
 
-    val callLauncher: ManagedActivityResultLauncher<Intent, ActivityResult> =
-        rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) { _ ->
-
-        }
 
     Scaffold(
         topBar = {
@@ -102,23 +107,23 @@ fun HomeScreen(navController: NavHostController) {
                     }
                 },
 
-                actions = {
-                    IconButton(onClick = {
-                        navController.navigate(ROUTE_LOGIN) {
-                            popUpTo(ROUTE_HOME) { inclusive = true }
-                        }
-
-                    }) {
-                        Icon(
-                            imageVector = Icons.Filled.AccountCircle,
-                            contentDescription = null,
-                            tint = Color.White
-                        )
-                    }
-                },
+//                actions = {
+//                    IconButton(onClick = {
+//                        navController.navigate(ROUTE_LOGIN) {
+//                            popUpTo(ROUTE_HOME) { inclusive = true }
+//                        }
+//
+//                    }) {
+//                        Icon(
+//                            imageVector = Icons.Filled.AccountCircle,
+//                            contentDescription = null,
+//                            tint = Color.White
+//                        )
+//                    }
+//                },
 
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.Red,
+                    containerColor = Color.DarkGray,
                     titleContentColor = Color.White,
 
                 )
@@ -136,19 +141,27 @@ fun HomeScreen(navController: NavHostController) {
                         }
                     }
             ) {
+                Image(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentScale = ContentScale.Fit
+
+                    ,
+
+                    painter = painterResource(id = R.drawable.earth), contentDescription = "image")
 
 
                 Column(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color.LightGray),
+                        .fillMaxSize(),
+
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                 Text(text = "What is disaster management?", 
                 modifier=Modifier,
                     fontWeight = FontWeight.ExtraBold,
-                    color = Color.Red,
+                    color = Color.Black,
                     fontSize = 25.sp,
                     
                 )
@@ -206,20 +219,7 @@ fun HomeScreen(navController: NavHostController) {
                     
                     
                     
-                    
-//                    Text(
-//                        text = stringResource(id = R.string.call),
-//                        fontSize = 20.sp,
-//                        modifier = Modifier
-//                            .padding(16.dp)
-//                            .clickable {
-//
-//                                val intent = Intent(Intent.ACTION_DIAL)
-//                                intent.data = Uri.parse("tel:+254794842947")
-//
-//                                callLauncher.launch(intent)
-//                            }
-//                    )
+
 //
 //                    Text(
 //                        text = stringResource(id = R.string.developer),
@@ -297,6 +297,19 @@ fun HomeScreen(navController: NavHostController) {
 //                    )
 
 
+//                    Text(
+//                        text = stringResource(id = R.string.call),
+//                        fontSize = 20.sp,
+//                        modifier = Modifier
+//                            .padding(16.dp)
+//                            .clickable {
+//
+//                                val intent = Intent(Intent.ACTION_DIAL)
+//                                intent.data = Uri.parse("tel:+254794842947")
+//
+//                                callLauncher.launch(intent)
+//                            })
+//
 
                 }
 
@@ -319,10 +332,13 @@ fun HomeScreen(navController: NavHostController) {
         onClose = { isDrawerOpen = false }
     )
 }
-@Preview(showBackground = true)
+
 @Composable
 fun AnimatedDrawer(isOpen: Boolean, onClose: () -> Unit) {
     val drawerWidth = remember { Animatable(if (isOpen) 250f else 0f) }
+    val callLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) {}
 
     LaunchedEffect(isOpen) {
         drawerWidth.animateTo(if (isOpen) 250f else 0f, animationSpec = tween(durationMillis = 300))
@@ -331,22 +347,67 @@ fun AnimatedDrawer(isOpen: Boolean, onClose: () -> Unit) {
     Surface(
         modifier = Modifier
             .fillMaxHeight()
-            .width(drawerWidth.value.dp)
-            ,
-        color = Color.LightGray,
-//        elevation = 16.dp
-    ) {
+            .width(drawerWidth.value.dp),
+        color = Color.DarkGray,
+//       elevation = 16.dp
+    )
+
+
+    {
         Column {
             Text(
-                text = "Drawer Item 1"
+                modifier = Modifier,
+                 color = Color.Red,
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center,
 
+                text = "Contact:")
+            Text(
+                modifier = Modifier
+                    .padding(20.dp)
+                    .clickable {
+                        val intent = Intent(Intent.ACTION_DIAL)
+                        intent.data = Uri.parse("tel:+254794842947")
+                        callLauncher.launch(intent)
+                    },
+                color = Color.Cyan,
+                text = "i) UNDRR"
+            )
+
+
+            Text(
+                modifier = Modifier
+                    .padding(20.dp)
+                    .clickable {
+                        val intent = Intent(Intent.ACTION_DIAL)
+                        intent.data = Uri.parse("tel:+254 20 221 2386 ")
+                        callLauncher.launch(intent)
+                    },
+                color = Color.Cyan,
+                text = "ii) NDOC"
             )
             Text(
-                text = "Drawer Item 2"
-            )
+                modifier = Modifier
+                    .padding(20.dp)
+                    .clickable {
+                        val intent = Intent(Intent.ACTION_DIAL)
+                        intent.data = Uri.parse("tel:+254 20 762 1234")
+                        callLauncher.launch(intent)
+                    },
+                color = Color.Cyan,
+                text = "iii) UNEP",
+
+                )
             Text(
-                text = "Drawer Item 3",
-                modifier = Modifier.clickable {  }
+                modifier = Modifier
+                    .padding(20.dp)
+                    .clickable {
+                        val intent = Intent(Intent.ACTION_DIAL)
+                        intent.data = Uri.parse("tel:+41 22 730 4222")
+                        callLauncher.launch(intent)
+                    },
+                color = Color.Cyan,
+                text = "iv) RED CROSS"
             )
             Spacer(modifier = Modifier.height(16.dp))
 //            Text(text = stringResource(id = R.string.developer))
@@ -381,20 +442,20 @@ fun BottomBar(navController: NavHostController) {
 //            })
 
         BottomNavigationItem(icon = {
-            Icon(imageVector = Icons.Default.Favorite,"",tint = Color.White)
+            Icon(imageVector = Icons.Default.Info,"",tint = Color.White)
         },
-            label = { Text(text = "Favorite",color =  Color.White) },
+            label = { Text(text = "More info",color =  Color.White) },
             selected = (selectedIndex.value == 1), onClick = {
-                navController.navigate(ROUTE_SEARCH) {
+                navController.navigate(ROUTE_ABOUT) {
                     popUpTo(ROUTE_HOME) { inclusive = true }
                 }
             })
 
         BottomNavigationItem(icon = {
-            Icon(imageVector = Icons.Default.Person, "",tint = Color.White)
+            Icon(imageVector = Icons.Default.MoreVert, "",tint = Color.White)
         },
             label = { Text(
-                text = "Students",
+                text = "Learn More",
                 color =  Color.White) },
             selected = (selectedIndex.value == 2),
             onClick = {
@@ -406,4 +467,5 @@ fun BottomBar(navController: NavHostController) {
             })
 
     }
+
 }

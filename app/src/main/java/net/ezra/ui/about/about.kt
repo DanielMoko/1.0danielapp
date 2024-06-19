@@ -25,25 +25,25 @@ fun AboutScreen(navController: NavHostController) {
 
 
 
-
-    Column {
-        Text(text = "about")
-
-        Text(text = stringResource(id = R.string.apen))
-
-        Text(
-            modifier = Modifier
-
-                .clickable {
-                    navController.navigate(ROUTE_HOME) {
-                        popUpTo(ROUTE_ABOUT) { inclusive = true }
-                    }
-                },
-            text = "Home",
-            textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.onSurface
-        )
-    }
+//
+//    Column {
+//        Text(text = "about")
+//
+//        Text(text = stringResource(id = R.string.apen))
+//
+//        Text(
+//            modifier = Modifier
+//
+//                .clickable {
+//                    navController.navigate(ROUTE_HOME) {
+//                        popUpTo(ROUTE_ABOUT) { inclusive = true }
+//                    }
+//                },
+//            text = "Home",
+//            textAlign = TextAlign.Center,
+//            color = MaterialTheme.colorScheme.onSurface
+//        )
+//    }
 
 }
 
