@@ -174,6 +174,7 @@ fun AddProductScreen(navController: NavController, onProductAdded: () -> Unit) {
                             productPriceError = productPrice.isBlank()
                             productImageError = productImageUri == null
 
+
                             // Add product if all fields are filled
                             if (!productNameError && !productDescriptionError && !productPriceError && !productImageError) {
                                 addProductToFirestore(
