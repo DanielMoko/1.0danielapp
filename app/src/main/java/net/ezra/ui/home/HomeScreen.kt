@@ -39,6 +39,7 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -188,25 +189,26 @@ fun HomeScreen(navController: NavHostController) {
                     Spacer(modifier = Modifier.height(25.dp))
 
 
-                    Button(
-                        modifier = Modifier,
-                        colors = ButtonDefaults.buttonColors(Color.Black),
-                        onClick = {
-                        navController.navigate(ROUTE_ADD_PRODUCT) {
-                            popUpTo(ROUTE_HOME) { inclusive = true }
-                        }}) {
-
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            color = Color.Red,
-                            textAlign = TextAlign.Center,
-
-                            
-
-                            text = "Continue..")
-
-                    }
+//                    Button(
+//                        modifier = Modifier,
+//                        colors = ButtonDefaults.buttonColors(Color.Black),
+//                        onClick = {
+//                        navController.navigate(ROUTE_ADD_PRODUCT) {
+//                            popUpTo(ROUTE_HOME) { inclusive = true }
+//                        }}
+                //                        ) {
+//
+//                        Text(
+//                            modifier = Modifier
+//                                .fillMaxWidth(),
+//                            color = Color.Red,
+//                            textAlign = TextAlign.Center,
+//
+//
+//
+//                            text = "Continue..")
+//
+//                    }
                     
                     
                     
@@ -272,19 +274,19 @@ fun HomeScreen(navController: NavHostController) {
 //                        color = MaterialTheme.colorScheme.onSurface
 //                    )
 //
-                    Text(
-                        modifier = Modifier
-
-                            .clickable {
-                                navController.navigate(ROUTE_VIEW_PROD) {
-                                    popUpTo(ROUTE_HOME) { inclusive = true }
-                                }
-                            },
-                        text = "view Products",
-                        textAlign = TextAlign.Center,
-                        fontSize = 20.sp,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
+//                    Text(
+//                        modifier = Modifier
+//
+//                            .clickable {
+//                                navController.navigate(ROUTE_VIEW_PROD) {
+//                                    popUpTo(ROUTE_HOME) { inclusive = true }
+//                                }
+//                            },
+//                        text = "view Products",
+//                        textAlign = TextAlign.Center,
+//                        fontSize = 20.sp,
+//                        color = MaterialTheme.colorScheme.onSurface
+//                    )
 //
 //
 //
@@ -452,19 +454,17 @@ fun BottomBar(navController: NavHostController) {
             })
 
         BottomNavigationItem(icon = {
-            Icon(imageVector = Icons.Default.MoreVert, "",tint = Color.White)
+            Icon(imageVector = Icons.Default.Warning, "",tint = Color.White)
         },
             label = { Text(
-                text = "Learn More",
+                text = "What danger are you in",
                 color =  Color.White) },
             selected = (selectedIndex.value == 2),
             onClick = {
-
-                navController.navigate(ROUTE_SEARCH) {
-                    popUpTo(ROUTE_HOME) { inclusive = true }
-                }
-
-            })
+                        navController.navigate(ROUTE_ADD_PRODUCT) {
+                            popUpTo(ROUTE_HOME) { inclusive = true }
+                        }}
+        )
 
     }
 

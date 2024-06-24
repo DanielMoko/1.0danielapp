@@ -17,12 +17,14 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -39,10 +41,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.DarkGray
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role.Companion.Button
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -56,17 +61,18 @@ import net.ezra.ui.dashboard.DashboardItem
 import net.ezra.ui.dashboard.DashboardItemData
 
 
+
 @RequiresApi(Build.VERSION_CODES.Q)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "ResourceAsColor")
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
 fun AboutScreen(navController: NavHostController) {
-
+    val context = LocalContext.current
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("More Information") },
+                title = { Text("Organisations Involved") },
                 //elevation = 4.dp
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = DarkGray,
@@ -121,20 +127,23 @@ LazyColumn {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
                         .fillMaxSize()
-//                        .clickable {
-//                            val url = "https://www.redcross.or.ke/"
-//                            val intent = Intent(Intent.ACTION_VIEW)
-//                            intent.data = Uri.parse(url)
-//                            context.startActivity(intent)
-//                        }
-//                        .padding(top = 8.dp) // Adjust top padding to prevent overlap
-//                ) {
-//                    Text(text = "Click me to visit Red Cross Kenya")
-//                }
+                        .padding(8.dp)
+                        .clickable {
+                            val url = "https://www.redcross.or.ke/"
+                            val intent = Intent(Intent.ACTION_VIEW)
+                            intent.data = Uri.parse(url)
+                            context.startActivity(intent)
+                        }
+                )
+
+                 {
 
 
 
-                ) {
+
+
+
+
                     Image(
 //                  modifier = Modifier
 //                      .fillMaxSize(),
@@ -154,7 +163,24 @@ LazyColumn {
                                 " emergency relief during disasters, offers first aid training," +
                                 " and engages in community-based disaster preparedness."
                     )
-
+//                     Button(
+//                        // colors = ButtonDefaults.ButtonColors(Black),
+//                        modifier = Modifier,
+//                         onClick = {}
+//                         ) {
+//
+//                        Text(
+//                            modifier = Modifier
+//                                .fillMaxWidth(),
+//                            color = Color.Cyan,
+//                            textAlign = TextAlign.Center,
+//
+//
+//
+//                            text = "access our website")
+//
+//                    }
+                 }
                 }
             }
 
@@ -168,7 +194,14 @@ LazyColumn {
             ) {
                 Column(
                     modifier = Modifier
-                        .fillMaxSize(),
+                        .fillMaxSize()
+                        .clickable {
+                            val url =
+                                "https://www.un-spider.org/kenya-national-disaster-operations-centre-ndoc"
+                            val intent = Intent(Intent.ACTION_VIEW)
+                            intent.data = Uri.parse(url)
+                            context.startActivity(intent)
+                        },
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Image(
@@ -202,7 +235,13 @@ LazyColumn {
             ) {
                 Column(
                     modifier = Modifier
-                        .fillMaxSize(),
+                        .fillMaxSize()
+                        .clickable {
+                            val url = "https://www.undrr.org/"
+                            val intent = Intent(Intent.ACTION_VIEW)
+                            intent.data = Uri.parse(url)
+                            context.startActivity(intent)
+                        },
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Image(
@@ -236,7 +275,13 @@ LazyColumn {
             ) {
                 Column(
                     modifier = Modifier
-                        .fillMaxSize(),
+                        .fillMaxSize()
+                        .clickable {
+                            val url = "https://www.unep.org/"
+                            val intent = Intent(Intent.ACTION_VIEW)
+                            intent.data = Uri.parse(url)
+                            context.startActivity(intent)
+                        },
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Image(
@@ -268,7 +313,13 @@ LazyColumn {
             ) {
                 Column(
                     modifier = Modifier
-                        .fillMaxSize(),
+                        .fillMaxSize()
+                        .clickable {
+                            val url = "https://meteo.go.ke/"
+                            val intent = Intent(Intent.ACTION_VIEW)
+                            intent.data = Uri.parse(url)
+                            context.startActivity(intent)
+                        } ,
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Image(
@@ -300,7 +351,13 @@ LazyColumn {
             ) {
                 Column(
                     modifier = Modifier
-                        .fillMaxSize(),
+                        .fillMaxSize()
+                        .clickable {
+                            val url = "https://ndma.go.ke/"
+                            val intent = Intent(Intent.ACTION_VIEW)
+                            intent.data = Uri.parse(url)
+                            context.startActivity(intent)
+                        } ,
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Image(
@@ -336,7 +393,7 @@ LazyColumn {
                 }
     }
 }
-}}
+}
 //
 //    Column {
 //        Text(text = "about")

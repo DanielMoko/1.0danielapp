@@ -13,6 +13,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -24,8 +25,8 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -35,6 +36,7 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.tasks.await
+import net.ezra.R
 import net.ezra.navigation.ROUTE_ADD_PRODUCT
 import net.ezra.navigation.ROUTE_HOME
 import net.ezra.navigation.ROUTE_VIEW_PROD
@@ -42,7 +44,6 @@ import java.util.*
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
 @Composable
 fun AddProductScreen(navController: NavController, onProductAdded: () -> Unit) {
     var productName by remember { mutableStateOf("") }
@@ -66,13 +67,12 @@ fun AddProductScreen(navController: NavController, onProductAdded: () -> Unit) {
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    Text(text = "Your Information", fontSize = 30.sp, color = Color.White)
+                    Text(text = "Your information", fontSize = 30.sp, color = Color.White)
                 },
                 navigationIcon = {
                     IconButton(onClick = {
                         navController.navigate(ROUTE_VIEW_PROD)
-                    })
-                    {
+                    }) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
                             "backIcon",
@@ -81,7 +81,7 @@ fun AddProductScreen(navController: NavController, onProductAdded: () -> Unit) {
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.DarkGray,
+                    containerColor = (Color.DarkGray),
                     titleContentColor = Color.White,
                 )
             )
@@ -90,36 +90,43 @@ fun AddProductScreen(navController: NavController, onProductAdded: () -> Unit) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.LightGray)
+                    .background(Color.White),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 item {
+                    Image(
+                        modifier = Modifier
+                            .size(110.dp),
+                        painter = painterResource(id = R.drawable.no), contentDescription = "image")
 
-
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
                     TextField(
+                        shape = RoundedCornerShape(50.dp),
                         value = productName,
                         onValueChange = { productName = it },
-                        label = { Text("Write any of your names") },
+                        label = { Text("Your Name") },
                         modifier = Modifier.fillMaxWidth()
                     )
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(15.dp))
                     TextField(
+                        shape = RoundedCornerShape(50.dp),
                         value = productDescription,
                         onValueChange = { productDescription = it },
-                        label = { Text("Location") },
+                        label = { Text("Your Location") },
                         modifier = Modifier.fillMaxWidth()
                     )
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(15.dp))
                     TextField(
+                        shape = RoundedCornerShape(50.dp),
                         value = productPrice,
                         onValueChange = { productPrice = it },
-                        label = { Text("Which risk have you or are you encountering") },
+                        label = { Text("What danger are you facing") },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                         keyboardActions = KeyboardActions(onDone = { /* Handle Done action */ }),
                         modifier = Modifier.fillMaxWidth()
                     )
-                    Spacer(modifier = Modifier.height(16.dp))
-
+                    Spacer(modifier = Modifier.height(15.dp))
                     if (productImageUri != null) {
                         // Display selected image
                         Image(
@@ -129,41 +136,35 @@ fun AddProductScreen(navController: NavController, onProductAdded: () -> Unit) {
                                 .fillMaxWidth()
                                 .height(200.dp)
                         )
-                        //val intent = Intent(Intent.ACTION_DIAL)
-//                                intent.data = Uri.parse("tel:+254794842947")
-//
-//                                callLauncher.launch(intent)
-
-
                     } else {
                         // Display placeholder if no image selected
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(50.dp),
-
-                        )
-                        Button(
-                            modifier = Modifier,
-                            colors = ButtonDefaults.buttonColors(Color.Transparent),
-
-
-                            onClick = { launcher.launch("image/*") }) {
-                            Text("Take a photo")
+                                .height(200.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text("Add an image", modifier = Modifier.padding(8.dp))
                         }
                     }
                     Spacer(modifier = Modifier.height(16.dp))
+                    Button(onClick = { launcher.launch("image/*") },
+                        colors = ButtonDefaults.buttonColors(Color.Gray)) {
+                        Text("Go to your gallery")
+                    }
 
                     if (productNameError) {
-                        Text("Give atleast one name", color = Color.White)
+                        Text("Atleast one name is required", color = Color.Red)
                     }
                     if (productDescriptionError) {
-                        Text("Your location is needed", color = Color.White)
+                        Text("Please state your location", color = Color.Red)
                     }
                     if (productPriceError) {
-                        Text("Select the danger you are in", color = Color.White)
+                        Text("Product Price is required", color = Color.Red)
                     }
-
+                    if (productImageError) {
+                        Text(" Image is required", color = Color.Red)
+                    }
 
                     // Button to add product
                     Button(
@@ -173,7 +174,6 @@ fun AddProductScreen(navController: NavController, onProductAdded: () -> Unit) {
                             productDescriptionError = productDescription.isBlank()
                             productPriceError = productPrice.isBlank()
                             productImageError = productImageUri == null
-
 
                             // Add product if all fields are filled
                             if (!productNameError && !productDescriptionError && !productPriceError && !productImageError) {
@@ -187,9 +187,11 @@ fun AddProductScreen(navController: NavController, onProductAdded: () -> Unit) {
                                 )
                             }
                         },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(Color.Gray)
                     ) {
-                        Text("Submit")
+                        Text("Submit here")
                     }
                 }
             }
