@@ -4,8 +4,11 @@ package net.ezra.ui.products
 
 import android.annotation.SuppressLint
 import android.net.Uri
+import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -25,6 +28,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -122,8 +126,8 @@ fun AddProductScreen(navController: NavController, onProductAdded: () -> Unit) {
                         value = productPrice,
                         onValueChange = { productPrice = it },
                         label = { Text("What danger are you facing") },
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                        keyboardActions = KeyboardActions(onDone = { /* Handle Done action */ }),
+                       // keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                        //keyboardActions = KeyboardActions(onDone = { /* Handle Done action */ }),
                         modifier = Modifier.fillMaxWidth()
                     )
                     Spacer(modifier = Modifier.height(15.dp))
@@ -198,6 +202,29 @@ fun AddProductScreen(navController: NavController, onProductAdded: () -> Unit) {
         }
     )
 }
+//@Composable
+//fun CameraButton() {
+//    val context = LocalContext.current
+//    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap ->
+//        // Handle the picture here
+//    }
+//
+//    Button(
+//        modifier =  Modifier,
+//        colors = ButtonDefaults.buttonColors(Color.Magenta),
+//        onClick = { launcher.launch(null) }) {
+//        Text(text = "Open Camera")
+//    }
+//}
+//
+//class MainActivity : ComponentActivity() {
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setContent {
+//            CameraButton()
+//        }
+//    }
+//}
 
 private fun addProductToFirestore(navController: NavController, onProductAdded: () -> Unit, productName: String, productDescription: String, productPrice: Double, productImageUri: Uri?) {
     if (productName.isEmpty() || productDescription.isEmpty() || productPrice.isNaN() || productImageUri == null) {

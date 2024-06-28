@@ -24,7 +24,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -43,6 +43,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.DarkGray
+import androidx.compose.ui.graphics.Color.Companion.Magenta
+import androidx.compose.ui.graphics.Color.Companion.Red
+import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -79,10 +82,7 @@ fun AboutScreen(navController: NavHostController) {
                     titleContentColor = Color.White,
                 )
             )}
-//        ,
-//                colors = TopAppBarDefaults.topAppBarColors(
-//                containerColor = Color.DarkGray,
-//        titleContentColor = Color.White,
+
 
         )
 
@@ -163,26 +163,34 @@ LazyColumn {
                                 " emergency relief during disasters, offers first aid training," +
                                 " and engages in community-based disaster preparedness."
                     )
-//                     Button(
-//                        // colors = ButtonDefaults.ButtonColors(Black),
-//                        modifier = Modifier,
-//                         onClick = {}
-//                         ) {
-//
-//                        Text(
-//                            modifier = Modifier
-//                                .fillMaxWidth(),
-//                            color = Color.Cyan,
-//                            textAlign = TextAlign.Center,
-//
-//
-//
-//                            text = "access our website")
-//
-//                    }
+                     Button(
+
+                         onClick = {
+                             val url = "https://www.redcross.or.ke/"
+                             val intent = Intent(Intent.ACTION_VIEW)
+                             intent.data = Uri.parse(url)
+                             context.startActivity(intent)
+                         },
+                         colors = ButtonDefaults.buttonColors(Red)
+                         ) {
+
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            color = Color.Black,
+                            textAlign = TextAlign.Center,
+
+
+
+                            text = "Access our website")
+
+                    }
                  }
                 }
             }
+        Spacer(modifier = Modifier
+            .height(20.dp)
+        )
 
             Card(
                 colors = CardDefaults.cardColors(Color.Unspecified),
@@ -190,7 +198,7 @@ LazyColumn {
 
                 elevation = CardDefaults.cardElevation(10.dp),
                 modifier = Modifier
-                    .height(280.dp)
+                    .height(300.dp)
             ) {
                 Column(
                     modifier = Modifier
@@ -222,8 +230,34 @@ LazyColumn {
                                 "management efforts across the country, ensuring a unified " +
                                 "approach to disaster management and resource allocation."
                     )
+                    Button(
+
+                        onClick = {
+                            val url =
+                                "https://www.un-spider.org/kenya-national-disaster-operations-centre-ndoc"
+                            val intent = Intent(Intent.ACTION_VIEW)
+                            intent.data = Uri.parse(url)
+                            context.startActivity(intent)
+                        },
+                        colors = ButtonDefaults.buttonColors(Red)
+                    ) {
+
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            color = Color.Black,
+                            textAlign = TextAlign.Center,
+
+
+
+                            text = "Access our website")
+
+                    }
                 }
             }
+        Spacer(modifier = Modifier
+            .height(20.dp)
+        )
 
             Card(
                 colors = CardDefaults.cardColors(Color.Unspecified),
@@ -231,7 +265,7 @@ LazyColumn {
 
                 elevation = CardDefaults.cardElevation(10.dp),
                 modifier = Modifier
-                    .height(260.dp)
+                    .height(290.dp)
             ) {
                 Column(
                     modifier = Modifier
@@ -262,16 +296,40 @@ LazyColumn {
                                 "development to reduce the impact of disasters."
                     )
 
+                    Button(
 
+                        onClick = {
+                            val url = "https://www.undrr.org/"
+                            val intent = Intent(Intent.ACTION_VIEW)
+                            intent.data = Uri.parse(url)
+                            context.startActivity(intent)
+                        },
+                        colors = ButtonDefaults.buttonColors(Red)
+                    ) {
+
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            color = Color.Black,
+                            textAlign = TextAlign.Center,
+
+
+
+                            text = "Access our website")
+
+                    }
                 }
             }
+        Spacer(modifier = Modifier
+            .height(20.dp)
+        )
             Card(
                 colors = CardDefaults.cardColors(Color.Unspecified),
                 shape = RoundedCornerShape(20.dp),
 
                 elevation = CardDefaults.cardElevation(10.dp),
                 modifier = Modifier
-                    .height(250.dp)
+                    .height(290.dp)
             ) {
                 Column(
                     modifier = Modifier
@@ -301,7 +359,32 @@ LazyColumn {
                                 "globally, including disaster risk reduction through" +
                                 " sustainable environmental management and policy support."
                     )
+                    Button(
+
+                        onClick = {
+                            val url = "https://www.unep.org/"
+                            val intent = Intent(Intent.ACTION_VIEW)
+                            intent.data = Uri.parse(url)
+                            context.startActivity(intent)
+                        },
+                        colors = ButtonDefaults.buttonColors(Red)
+                    ) {
+
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            color = Color.Black,
+                            textAlign = TextAlign.Center,
+
+
+
+                            text = "Access our website")
+
+                    }
                 }}
+        Spacer(modifier = Modifier
+            .height(20.dp)
+        )
 
             Card(
                 colors = CardDefaults.cardColors(Color.Unspecified),
@@ -339,19 +422,43 @@ LazyColumn {
                                 " including forecasts and warnings, to enhance " +
                                 "preparedness and response to weather-related disasters."
                     )
-                }}
+                    Button(
 
+                        onClick = {
+                            val url = "https://meteo.go.ke/"
+                            val intent = Intent(Intent.ACTION_VIEW)
+                            intent.data = Uri.parse(url)
+                            context.startActivity(intent)
+                        },
+                        colors = ButtonDefaults.buttonColors(Red)
+                    ) {
+
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            color = Color.Black,
+                            textAlign = TextAlign.Center,
+
+
+
+                            text = "Access our website")
+
+                    }
+                }}
+        Spacer(modifier = Modifier
+            .height(20.dp)
+        )
             Card(
                 colors = CardDefaults.cardColors(Color.Unspecified),
                 shape = RoundedCornerShape(20.dp),
 
                 elevation = CardDefaults.cardElevation(10.dp),
                 modifier = Modifier
-                    .height(250.dp)
+                    .height(280.dp)
             ) {
                 Column(
                     modifier = Modifier
-                        .fillMaxSize()
+                        //.fillMaxSize()
                         .clickable {
                             val url = "https://ndma.go.ke/"
                             val intent = Intent(Intent.ACTION_VIEW)
@@ -380,6 +487,27 @@ LazyColumn {
                                 " management efforts, including early warning systems" +
                                 " and mitigation strategies."
                     )
+                    Button(
+
+                        onClick = { val url = "https://ndma.go.ke/"
+                            val intent = Intent(Intent.ACTION_VIEW)
+                            intent.data = Uri.parse(url)
+                            context.startActivity(intent)
+                        },
+                        colors = ButtonDefaults.buttonColors(Red)
+                    ) {
+
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            color = Color.Black,
+                            textAlign = TextAlign.Center,
+
+
+
+                            text = "Access our website")
+
+                    }
                 }}
 
 

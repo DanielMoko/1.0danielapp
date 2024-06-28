@@ -369,7 +369,7 @@ fun AnimatedDrawer(isOpen: Boolean, onClose: () -> Unit) {
                     .padding(20.dp)
                     .clickable {
                         val intent = Intent(Intent.ACTION_DIAL)
-                        intent.data = Uri.parse("tel:+254794842947")
+                        intent.data = Uri.parse("tel:+254 20 762 6719")
                         callLauncher.launch(intent)
                     },
                 color = Color.Cyan,
@@ -405,15 +405,25 @@ fun AnimatedDrawer(isOpen: Boolean, onClose: () -> Unit) {
                     .padding(20.dp)
                     .clickable {
                         val intent = Intent(Intent.ACTION_DIAL)
-                        intent.data = Uri.parse("tel:+41 22 730 4222")
+                        intent.data = Uri.parse("tel:020 3950000")
                         callLauncher.launch(intent)
                     },
                 color = Color.Cyan,
                 text = "iv) RED CROSS"
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            //Spacer(modifier = Modifier.height(16.dp))
 //            Text(text = stringResource(id = R.string.developer))
-
+            Text(
+                modifier = Modifier
+                    .padding(20.dp)
+                    .clickable {
+                        val intent = Intent(Intent.ACTION_DIAL)
+                        intent.data = Uri.parse("tel:999")
+                        callLauncher.launch(intent)
+                    },
+                color = Color.Cyan,
+                text = "v)THE POLICE"
+            )
         }
     }
 }
