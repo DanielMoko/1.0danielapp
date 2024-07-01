@@ -55,10 +55,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -77,6 +79,7 @@ import net.ezra.navigation.ROUTE_SEARCH
 import net.ezra.navigation.ROUTE_VIEW_PROD
 import net.ezra.navigation.ROUTE_VIEW_STUDENTS
 import net.ezra.ui.students.BottomBar
+import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 
 data class Screen(val title: String, val icon: Int)
@@ -94,41 +97,38 @@ fun HomeScreen(navController: NavHostController) {
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    Text(text = "Risk Management")
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Image(
+                            modifier = Modifier
+                                .size(44.dp)
+                                .clickable { /* Handle image click */ },
+                            painter = painterResource(id = R.drawable.no),
+                            contentDescription = "image"
+                        )
+                        Spacer(modifier = Modifier.weight(1f))
+                        Text(text = "Risk Management", color = Color.White)
+                        Spacer(modifier = Modifier.weight(1f))
+                    }
                 },
-                navigationIcon = @Composable {
+                actions = {
                     if (!isDrawerOpen) {
                         IconButton(onClick = { isDrawerOpen = true }) {
                             Icon(
-                                Icons.Default.Menu,
+                                imageVector = Icons.Default.Menu,
                                 contentDescription = "Menu",
                                 tint = Color.White
-                                )
+                            )
                         }
                     }
                 },
-
-//                actions = {
-//                    IconButton(onClick = {
-//                        navController.navigate(ROUTE_LOGIN) {
-//                            popUpTo(ROUTE_HOME) { inclusive = true }
-//                        }
-//
-//                    }) {
-//                        Icon(
-//                            imageVector = Icons.Filled.AccountCircle,
-//                            contentDescription = null,
-//                            tint = Color.White
-//                        )
-//                    }
-//                },
-
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.DarkGray,
+                    containerColor = Color.Black,
                     titleContentColor = Color.White,
-
                 )
-
             )
         },
 
@@ -188,15 +188,15 @@ fun HomeScreen(navController: NavHostController) {
                                   " to creating a safer and more prepared society.")
                     Spacer(modifier = Modifier.height(25.dp))
 
-
+//
 //                    Button(
 //                        modifier = Modifier,
 //                        colors = ButtonDefaults.buttonColors(Color.Black),
 //                        onClick = {
-//                        navController.navigate(ROUTE_ADD_PRODUCT) {
+//                        navController.navigate(ROUTE_DASHBOARD ) {
 //                            popUpTo(ROUTE_HOME) { inclusive = true }
 //                        }}
-                //                        ) {
+//                                        ) {
 //
 //                        Text(
 //                            modifier = Modifier
@@ -467,7 +467,7 @@ fun BottomBar(navController: NavHostController) {
             Icon(imageVector = Icons.Default.Warning, "",tint = Color.White)
         },
             label = { Text(
-                text = "What danger are you in",
+                text = "Talk to us",
                 color =  Color.White) },
             selected = (selectedIndex.value == 2),
             onClick = {

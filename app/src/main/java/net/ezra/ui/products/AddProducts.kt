@@ -24,6 +24,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
@@ -75,7 +77,7 @@ fun AddProductScreen(navController: NavController, onProductAdded: () -> Unit) {
                 },
                 navigationIcon = {
                     IconButton(onClick = {
-                        navController.navigate(ROUTE_VIEW_PROD)
+                        navController.navigate(ROUTE_HOME)
                     }) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
@@ -105,25 +107,47 @@ fun AddProductScreen(navController: NavController, onProductAdded: () -> Unit) {
                         painter = painterResource(id = R.drawable.no), contentDescription = "image")
 
                     Spacer(modifier = Modifier.height(20.dp))
-                    TextField(
+                    OutlinedTextField(
                         shape = RoundedCornerShape(50.dp),
                         value = productName,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            unfocusedBorderColor = Color.Black,
+                            unfocusedLabelColor = Color.Black,
+                            focusedLabelColor = Color.Red,
+                            unfocusedContainerColor = Color.LightGray,
+                            focusedBorderColor = Color.Black
+                        ),
                         onValueChange = { productName = it },
                         label = { Text("Your Name") },
                         modifier = Modifier.fillMaxWidth()
                     )
                     Spacer(modifier = Modifier.height(15.dp))
-                    TextField(
+                    OutlinedTextField(
                         shape = RoundedCornerShape(50.dp),
                         value = productDescription,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            unfocusedBorderColor = Color.Black,
+                            unfocusedLabelColor = Color.Black,
+                            focusedLabelColor = Color.Red,
+                            unfocusedContainerColor = Color.LightGray,
+                            focusedBorderColor = Color.Black
+                        ),
                         onValueChange = { productDescription = it },
                         label = { Text("Your Location") },
                         modifier = Modifier.fillMaxWidth()
                     )
                     Spacer(modifier = Modifier.height(15.dp))
-                    TextField(
+                    OutlinedTextField(
                         shape = RoundedCornerShape(50.dp),
                         value = productPrice,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            unfocusedBorderColor = Color.Black,
+                            unfocusedLabelColor = Color.Black,
+                            focusedLabelColor = Color.Red,
+                            unfocusedContainerColor = Color.LightGray,
+                            focusedBorderColor = Color.Black
+                        ),
+
                         onValueChange = { productPrice = it },
                         label = { Text("What danger are you facing") },
                        // keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
@@ -195,7 +219,7 @@ fun AddProductScreen(navController: NavController, onProductAdded: () -> Unit) {
                             .fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(Color.Gray)
                     ) {
-                        Text("Submit here")
+                        Text("Add product")
                     }
                 }
             }

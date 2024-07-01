@@ -25,6 +25,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -46,10 +47,12 @@ import androidx.compose.ui.graphics.Color.Companion.DarkGray
 import androidx.compose.ui.graphics.Color.Companion.Magenta
 import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.Role.Companion.Button
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -60,6 +63,7 @@ import androidx.navigation.compose.rememberNavController
 import net.ezra.R
 import net.ezra.navigation.ROUTE_ABOUT
 import net.ezra.navigation.ROUTE_HOME
+import net.ezra.navigation.ROUTE_LOGIN
 import net.ezra.ui.dashboard.DashboardItem
 import net.ezra.ui.dashboard.DashboardItemData
 
@@ -72,19 +76,67 @@ import net.ezra.ui.dashboard.DashboardItemData
 @Composable
 fun AboutScreen(navController: NavHostController) {
     val context = LocalContext.current
+//    Scaffold(
+//        topBar = {
+//            CenterAlignedTopAppBar(
+//                title = {
+//                    Row {
+//                        IconButton(onClick = {  }) {
+//                            Image(
+//                                imageVector = ImageVector.vectorResource(id = R.drawable.no),
+//                                contentDescription = "Icon",
+//                                modifier = Modifier.size(10.dp)
+//                            )
+//                        }
+//                        Text("Organisations Involved")
+//                    }
+//                },
+//                // If you need to add elevation, uncomment the next line
+//                // elevation = 4.dp,
+//                colors = TopAppBarDefaults.topAppBarColors(
+//                    containerColor = Color.DarkGray,
+//                    titleContentColor = Color.White,
+//                )
+//            )
+//        }
+//    )
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = { Text("Organisations Involved") },
-                //elevation = 4.dp
+                // If you need to add elevation, uncomment the next line
+                // elevation = 4.dp,
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = DarkGray,
                     titleContentColor = Color.White,
-                )
-            )}
+                ),
+                navigationIcon = {
+                    IconButton(onClick = {  navController.navigate(ROUTE_HOME)}) {
+                        Icon(
+                            imageVector = Icons.Filled.Home,
+                            contentDescription = "home",
+                                    tint = Color.White
+                        )
+                    }
+                }
+            )
+        }
+    )
+
+//            Icon = @Composable {
+//
+//                    IconButton(onClick = { }) {
+//                        Icon(
+//                            Icons.Default.Menu,
+//                            contentDescription = "Menu",
+//                            tint = Color.White
+//                        )
+//                    }
+//
+//            }
 
 
-        )
+
 
     {
 //        Column(
