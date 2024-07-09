@@ -4,69 +4,47 @@ package net.ezra.ui.about
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.DarkGray
-import androidx.compose.ui.graphics.Color.Companion.Magenta
 import androidx.compose.ui.graphics.Color.Companion.Red
-import androidx.compose.ui.graphics.Color.Companion.Unspecified
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.semantics.Role.Companion.Button
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import net.ezra.R
-import net.ezra.navigation.ROUTE_ABOUT
 import net.ezra.navigation.ROUTE_HOME
-import net.ezra.navigation.ROUTE_LOGIN
-import net.ezra.ui.dashboard.DashboardItem
-import net.ezra.ui.dashboard.DashboardItemData
-
 
 
 @RequiresApi(Build.VERSION_CODES.Q)
@@ -115,7 +93,7 @@ fun AboutScreen(navController: NavHostController) {
                         Icon(
                             imageVector = Icons.Filled.Home,
                             contentDescription = "home",
-                                    tint = Color.White
+                            tint = Color.White
                         )
                     }
                 }
@@ -156,39 +134,46 @@ fun AboutScreen(navController: NavHostController) {
 //            }
 //        }
 //    }
-
-LazyColumn {
-    item {
-        Spacer(modifier = Modifier
-            .height(70.dp))
-        Column(
+        Image(
             modifier = Modifier
                 .fillMaxSize(),
-            // horizontalAlignment = Alignment.CenterHorizontally,
+            contentScale = ContentScale.Fit,
+
+            painter = painterResource(id = R.drawable.cloud),
+            contentDescription = "image"
         )
-        {
-            Card(
-                colors = CardDefaults.cardColors(Color.Unspecified),
-                shape = RoundedCornerShape(20.dp),
-
-                elevation = CardDefaults.cardElevation(10.dp),
-                modifier = Modifier
-                    .height(290.dp)
-            ) {
+        LazyColumn {
+            item {
+                Spacer(modifier = Modifier
+                    .height(70.dp))
                 Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(8.dp)
-                        .clickable {
-                            val url = "https://www.redcross.or.ke/"
-                            val intent = Intent(Intent.ACTION_VIEW)
-                            intent.data = Uri.parse(url)
-                            context.startActivity(intent)
-                        }
+                        .fillMaxSize(),
+                    // horizontalAlignment = Alignment.CenterHorizontally,
                 )
+                {
+                    Card(
+                        colors = CardDefaults.cardColors(Color.Unspecified),
+                        shape = RoundedCornerShape(20.dp),
 
-                 {
+                        elevation = CardDefaults.cardElevation(10.dp),
+                        modifier = Modifier
+                            .height(290.dp)
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(8.dp)
+                                .clickable {
+                                    val url = "https://www.redcross.or.ke/"
+                                    val intent = Intent(Intent.ACTION_VIEW)
+                                    intent.data = Uri.parse(url)
+                                    context.startActivity(intent)
+                                }
+                        )
+
+                        {
 
 
 
@@ -196,383 +181,383 @@ LazyColumn {
 
 
 
-                    Image(
+                            Image(
 //                  modifier = Modifier
 //                      .fillMaxSize(),
-                        // contentScale = ContentScale.Fit
+                                // contentScale = ContentScale.Fit
 
-                        // ,
+                                // ,
 
-                        painter = painterResource(id = R.drawable.redcross),
-                        contentDescription = "image"
-                    )
-                    Spacer(modifier = Modifier.height(15.dp))
-                    Text(
-                        text = "Kenya Red Cross Society (KRCS)" +
-                                " is the leading humanitarian organization in Kenya." +
-                                " It focuses on disaster response, health and social services," +
-                                " and promoting humanitarian values. The organization provides" +
-                                " emergency relief during disasters, offers first aid training," +
-                                " and engages in community-based disaster preparedness."
-                    )
-                     Button(
+                                painter = painterResource(id = R.drawable.redcross),
+                                contentDescription = "image"
+                            )
+                            Spacer(modifier = Modifier.height(15.dp))
+                            Text(
+                                text = "Kenya Red Cross Society (KRCS)" +
+                                        " is the leading humanitarian organization in Kenya." +
+                                        " It focuses on disaster response, health and social services," +
+                                        " and promoting humanitarian values. The organization provides" +
+                                        " emergency relief during disasters, offers first aid training," +
+                                        " and engages in community-based disaster preparedness."
+                            )
+                            Button(
 
-                         onClick = {
-                             val url = "https://www.redcross.or.ke/"
-                             val intent = Intent(Intent.ACTION_VIEW)
-                             intent.data = Uri.parse(url)
-                             context.startActivity(intent)
-                         },
-                         colors = ButtonDefaults.buttonColors(Red)
-                         ) {
+                                onClick = {
+                                    val url = "https://www.redcross.or.ke/"
+                                    val intent = Intent(Intent.ACTION_VIEW)
+                                    intent.data = Uri.parse(url)
+                                    context.startActivity(intent)
+                                },
+                                colors = ButtonDefaults.buttonColors(Red)
+                            ) {
 
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            color = Color.Black,
-                            textAlign = TextAlign.Center,
+                                Text(
+                                    modifier = Modifier
+                                        .fillMaxWidth(),
+                                    color = Color.Black,
+                                    textAlign = TextAlign.Center,
 
 
 
-                            text = "Access our website")
+                                    text = "Access our website")
 
+                            }
+                        }
                     }
-                 }
                 }
+                Spacer(modifier = Modifier
+                    .height(20.dp)
+                )
+
+                Card(
+                    colors = CardDefaults.cardColors(Color.Unspecified),
+                    shape = RoundedCornerShape(20.dp),
+
+                    elevation = CardDefaults.cardElevation(10.dp),
+                    modifier = Modifier
+                        .height(300.dp)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clickable {
+                                val url =
+                                    "https://www.un-spider.org/kenya-national-disaster-operations-centre-ndoc"
+                                val intent = Intent(Intent.ACTION_VIEW)
+                                intent.data = Uri.parse(url)
+                                context.startActivity(intent)
+                            },
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        Image(
+
+
+                            painter = painterResource(id = R.drawable.name),
+                            contentDescription = "image"
+                        )
+
+                        Spacer(
+                            modifier = Modifier
+                                .height(20.dp)
+                        )
+                        Text(
+                            text = "National Disaster Operations Centre (NDOC) is a government" +
+                                    " agency under the Ministry of Interior and Coordination of " +
+                                    "National Government. It coordinates disaster response and " +
+                                    "management efforts across the country, ensuring a unified " +
+                                    "approach to disaster management and resource allocation."
+                        )
+                        Button(
+
+                            onClick = {
+                                val url =
+                                    "https://www.un-spider.org/kenya-national-disaster-operations-centre-ndoc"
+                                val intent = Intent(Intent.ACTION_VIEW)
+                                intent.data = Uri.parse(url)
+                                context.startActivity(intent)
+                            },
+                            colors = ButtonDefaults.buttonColors(Red)
+                        ) {
+
+                            Text(
+                                modifier = Modifier
+                                    .fillMaxWidth(),
+                                color = Color.Black,
+                                textAlign = TextAlign.Center,
+
+
+
+                                text = "Access our website")
+
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier
+                    .height(20.dp)
+                )
+
+                Card(
+                    colors = CardDefaults.cardColors(Color.Unspecified),
+                    shape = RoundedCornerShape(20.dp),
+
+                    elevation = CardDefaults.cardElevation(10.dp),
+                    modifier = Modifier
+                        .height(290.dp)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clickable {
+                                val url = "https://www.undrr.org/"
+                                val intent = Intent(Intent.ACTION_VIEW)
+                                intent.data = Uri.parse(url)
+                                context.startActivity(intent)
+                            },
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        Image(
+
+
+                            painter = painterResource(id = R.drawable.mariya),
+                            contentDescription = "mariya"
+                        )
+
+                        Spacer(
+                            modifier = Modifier
+                                .height(20.dp)
+                        )
+                        Text(
+                            text = "United Nations Office for Disaster Risk Reduction (UNDRR)" +
+                                    " works globally to support countries in disaster risk " +
+                                    "reduction efforts, promoting resilience and sustainable " +
+                                    "development to reduce the impact of disasters."
+                        )
+
+                        Button(
+
+                            onClick = {
+                                val url = "https://www.undrr.org/"
+                                val intent = Intent(Intent.ACTION_VIEW)
+                                intent.data = Uri.parse(url)
+                                context.startActivity(intent)
+                            },
+                            colors = ButtonDefaults.buttonColors(Red)
+                        ) {
+
+                            Text(
+                                modifier = Modifier
+                                    .fillMaxWidth(),
+                                color = Color.Black,
+                                textAlign = TextAlign.Center,
+
+
+
+                                text = "Access our website")
+
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier
+                    .height(20.dp)
+                )
+                Card(
+                    colors = CardDefaults.cardColors(Color.Unspecified),
+                    shape = RoundedCornerShape(20.dp),
+
+                    elevation = CardDefaults.cardElevation(10.dp),
+                    modifier = Modifier
+                        .height(290.dp)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clickable {
+                                val url = "https://www.unep.org/"
+                                val intent = Intent(Intent.ACTION_VIEW)
+                                intent.data = Uri.parse(url)
+                                context.startActivity(intent)
+                            },
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        Image(
+
+
+                            painter = painterResource(id = R.drawable.photo),
+                            contentDescription = "mariya"
+                        )
+
+                        Spacer(
+                            modifier = Modifier
+                                .height(20.dp)
+                        )
+                        Text(
+                            text = "United Nations Environment Programme (UNEP)" +
+                                    " is a UN agency addressing environmental issues " +
+                                    "globally, including disaster risk reduction through" +
+                                    " sustainable environmental management and policy support."
+                        )
+                        Button(
+
+                            onClick = {
+                                val url = "https://www.unep.org/"
+                                val intent = Intent(Intent.ACTION_VIEW)
+                                intent.data = Uri.parse(url)
+                                context.startActivity(intent)
+                            },
+                            colors = ButtonDefaults.buttonColors(Red)
+                        ) {
+
+                            Text(
+                                modifier = Modifier
+                                    .fillMaxWidth(),
+                                color = Color.Black,
+                                textAlign = TextAlign.Center,
+
+
+
+                                text = "Access our website")
+
+                        }
+                    }}
+                Spacer(modifier = Modifier
+                    .height(20.dp)
+                )
+
+                Card(
+                    colors = CardDefaults.cardColors(Color.Unspecified),
+                    shape = RoundedCornerShape(20.dp),
+
+                    elevation = CardDefaults.cardElevation(10.dp),
+                    modifier = Modifier
+                        .height(240.dp)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clickable {
+                                val url = "https://meteo.go.ke/"
+                                val intent = Intent(Intent.ACTION_VIEW)
+                                intent.data = Uri.parse(url)
+                                context.startActivity(intent)
+                            } ,
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        Image(
+
+
+                            painter = painterResource(id = R.drawable.put),
+                            contentDescription = "mariya"
+                        )
+
+                        Spacer(
+                            modifier = Modifier
+                                .height(20.dp)
+                        )
+                        Text(
+                            text = "Kenya Meteorological Department (KMD) provides " +
+                                    "weather and climate information services," +
+                                    " including forecasts and warnings, to enhance " +
+                                    "preparedness and response to weather-related disasters."
+                        )
+                        Button(
+
+                            onClick = {
+                                val url = "https://meteo.go.ke/"
+                                val intent = Intent(Intent.ACTION_VIEW)
+                                intent.data = Uri.parse(url)
+                                context.startActivity(intent)
+                            },
+                            colors = ButtonDefaults.buttonColors(Red)
+                        ) {
+
+                            Text(
+                                modifier = Modifier
+                                    .fillMaxWidth(),
+                                color = Color.Black,
+                                textAlign = TextAlign.Center,
+
+
+
+                                text = "Access our website")
+
+                        }
+                    }}
+                Spacer(modifier = Modifier
+                    .height(20.dp)
+                )
+                Card(
+                    colors = CardDefaults.cardColors(Color.Unspecified),
+                    shape = RoundedCornerShape(20.dp),
+
+                    elevation = CardDefaults.cardElevation(10.dp),
+                    modifier = Modifier
+                        .height(280.dp)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            //.fillMaxSize()
+                            .clickable {
+                                val url = "https://ndma.go.ke/"
+                                val intent = Intent(Intent.ACTION_VIEW)
+                                intent.data = Uri.parse(url)
+                                context.startActivity(intent)
+                            } ,
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        Image(
+
+
+                            painter = painterResource(id = R.drawable.ok),
+                            contentDescription = "mariya"
+                        )
+
+                        Spacer(
+                            modifier = Modifier
+                                .height(20.dp)
+                        )
+                        Spacer(modifier = Modifier
+                            .height(20.dp)
+                        )
+                        Text(
+                            text = "National Drought Management Authority (NDMA) is a " +
+                                    "Government agency tasked with coordinating drought" +
+                                    " management efforts, including early warning systems" +
+                                    " and mitigation strategies."
+                        )
+                        Button(
+
+                            onClick = { val url = "https://ndma.go.ke/"
+                                val intent = Intent(Intent.ACTION_VIEW)
+                                intent.data = Uri.parse(url)
+                                context.startActivity(intent)
+                            },
+                            colors = ButtonDefaults.buttonColors(Red)
+                        ) {
+
+                            Text(
+                                modifier = Modifier
+                                    .fillMaxWidth(),
+                                color = Color.Black,
+                                textAlign = TextAlign.Center,
+
+
+
+                                text = "Access our website")
+
+                        }
+                    }}
+
+
+
+
+
+
+
+
+
             }
-        Spacer(modifier = Modifier
-            .height(20.dp)
-        )
-
-            Card(
-                colors = CardDefaults.cardColors(Color.Unspecified),
-                shape = RoundedCornerShape(20.dp),
-
-                elevation = CardDefaults.cardElevation(10.dp),
-                modifier = Modifier
-                    .height(300.dp)
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clickable {
-                            val url =
-                                "https://www.un-spider.org/kenya-national-disaster-operations-centre-ndoc"
-                            val intent = Intent(Intent.ACTION_VIEW)
-                            intent.data = Uri.parse(url)
-                            context.startActivity(intent)
-                        },
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Image(
-
-
-                        painter = painterResource(id = R.drawable.name),
-                        contentDescription = "image"
-                    )
-
-                    Spacer(
-                        modifier = Modifier
-                            .height(20.dp)
-                    )
-                    Text(
-                        text = "National Disaster Operations Centre (NDOC) is a government" +
-                                " agency under the Ministry of Interior and Coordination of " +
-                                "National Government. It coordinates disaster response and " +
-                                "management efforts across the country, ensuring a unified " +
-                                "approach to disaster management and resource allocation."
-                    )
-                    Button(
-
-                        onClick = {
-                            val url =
-                                "https://www.un-spider.org/kenya-national-disaster-operations-centre-ndoc"
-                            val intent = Intent(Intent.ACTION_VIEW)
-                            intent.data = Uri.parse(url)
-                            context.startActivity(intent)
-                        },
-                        colors = ButtonDefaults.buttonColors(Red)
-                    ) {
-
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            color = Color.Black,
-                            textAlign = TextAlign.Center,
-
-
-
-                            text = "Access our website")
-
-                    }
-                }
-            }
-        Spacer(modifier = Modifier
-            .height(20.dp)
-        )
-
-            Card(
-                colors = CardDefaults.cardColors(Color.Unspecified),
-                shape = RoundedCornerShape(20.dp),
-
-                elevation = CardDefaults.cardElevation(10.dp),
-                modifier = Modifier
-                    .height(290.dp)
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clickable {
-                            val url = "https://www.undrr.org/"
-                            val intent = Intent(Intent.ACTION_VIEW)
-                            intent.data = Uri.parse(url)
-                            context.startActivity(intent)
-                        },
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Image(
-
-
-                        painter = painterResource(id = R.drawable.mariya),
-                        contentDescription = "mariya"
-                    )
-
-                    Spacer(
-                        modifier = Modifier
-                            .height(20.dp)
-                    )
-                    Text(
-                        text = "United Nations Office for Disaster Risk Reduction (UNDRR)" +
-                                " works globally to support countries in disaster risk " +
-                                "reduction efforts, promoting resilience and sustainable " +
-                                "development to reduce the impact of disasters."
-                    )
-
-                    Button(
-
-                        onClick = {
-                            val url = "https://www.undrr.org/"
-                            val intent = Intent(Intent.ACTION_VIEW)
-                            intent.data = Uri.parse(url)
-                            context.startActivity(intent)
-                        },
-                        colors = ButtonDefaults.buttonColors(Red)
-                    ) {
-
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            color = Color.Black,
-                            textAlign = TextAlign.Center,
-
-
-
-                            text = "Access our website")
-
-                    }
-                }
-            }
-        Spacer(modifier = Modifier
-            .height(20.dp)
-        )
-            Card(
-                colors = CardDefaults.cardColors(Color.Unspecified),
-                shape = RoundedCornerShape(20.dp),
-
-                elevation = CardDefaults.cardElevation(10.dp),
-                modifier = Modifier
-                    .height(290.dp)
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clickable {
-                            val url = "https://www.unep.org/"
-                            val intent = Intent(Intent.ACTION_VIEW)
-                            intent.data = Uri.parse(url)
-                            context.startActivity(intent)
-                        },
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Image(
-
-
-                        painter = painterResource(id = R.drawable.photo),
-                        contentDescription = "mariya"
-                    )
-
-                    Spacer(
-                        modifier = Modifier
-                            .height(20.dp)
-                    )
-                    Text(
-                        text = "United Nations Environment Programme (UNEP)" +
-                                " is a UN agency addressing environmental issues " +
-                                "globally, including disaster risk reduction through" +
-                                " sustainable environmental management and policy support."
-                    )
-                    Button(
-
-                        onClick = {
-                            val url = "https://www.unep.org/"
-                            val intent = Intent(Intent.ACTION_VIEW)
-                            intent.data = Uri.parse(url)
-                            context.startActivity(intent)
-                        },
-                        colors = ButtonDefaults.buttonColors(Red)
-                    ) {
-
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            color = Color.Black,
-                            textAlign = TextAlign.Center,
-
-
-
-                            text = "Access our website")
-
-                    }
-                }}
-        Spacer(modifier = Modifier
-            .height(20.dp)
-        )
-
-            Card(
-                colors = CardDefaults.cardColors(Color.Unspecified),
-                shape = RoundedCornerShape(20.dp),
-
-                elevation = CardDefaults.cardElevation(10.dp),
-                modifier = Modifier
-                    .height(240.dp)
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clickable {
-                            val url = "https://meteo.go.ke/"
-                            val intent = Intent(Intent.ACTION_VIEW)
-                            intent.data = Uri.parse(url)
-                            context.startActivity(intent)
-                        } ,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Image(
-
-
-                        painter = painterResource(id = R.drawable.put),
-                        contentDescription = "mariya"
-                    )
-
-                    Spacer(
-                        modifier = Modifier
-                            .height(20.dp)
-                    )
-                    Text(
-                        text = "Kenya Meteorological Department (KMD) provides " +
-                                "weather and climate information services," +
-                                " including forecasts and warnings, to enhance " +
-                                "preparedness and response to weather-related disasters."
-                    )
-                    Button(
-
-                        onClick = {
-                            val url = "https://meteo.go.ke/"
-                            val intent = Intent(Intent.ACTION_VIEW)
-                            intent.data = Uri.parse(url)
-                            context.startActivity(intent)
-                        },
-                        colors = ButtonDefaults.buttonColors(Red)
-                    ) {
-
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            color = Color.Black,
-                            textAlign = TextAlign.Center,
-
-
-
-                            text = "Access our website")
-
-                    }
-                }}
-        Spacer(modifier = Modifier
-            .height(20.dp)
-        )
-            Card(
-                colors = CardDefaults.cardColors(Color.Unspecified),
-                shape = RoundedCornerShape(20.dp),
-
-                elevation = CardDefaults.cardElevation(10.dp),
-                modifier = Modifier
-                    .height(280.dp)
-            ) {
-                Column(
-                    modifier = Modifier
-                        //.fillMaxSize()
-                        .clickable {
-                            val url = "https://ndma.go.ke/"
-                            val intent = Intent(Intent.ACTION_VIEW)
-                            intent.data = Uri.parse(url)
-                            context.startActivity(intent)
-                        } ,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Image(
-
-
-                        painter = painterResource(id = R.drawable.ok),
-                        contentDescription = "mariya"
-                    )
-
-                    Spacer(
-                        modifier = Modifier
-                            .height(20.dp)
-                    )
-                    Spacer(modifier = Modifier
-                        .height(20.dp)
-                    )
-                    Text(
-                        text = "National Drought Management Authority (NDMA) is a " +
-                                "Government agency tasked with coordinating drought" +
-                                " management efforts, including early warning systems" +
-                                " and mitigation strategies."
-                    )
-                    Button(
-
-                        onClick = { val url = "https://ndma.go.ke/"
-                            val intent = Intent(Intent.ACTION_VIEW)
-                            intent.data = Uri.parse(url)
-                            context.startActivity(intent)
-                        },
-                        colors = ButtonDefaults.buttonColors(Red)
-                    ) {
-
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            color = Color.Black,
-                            textAlign = TextAlign.Center,
-
-
-
-                            text = "Access our website")
-
-                    }
-                }}
-
-
-
-
-
-
-
-
-
-                }
+        }
     }
-}
 }
 //
 //    Column {
@@ -601,4 +586,3 @@ LazyColumn {
 //fun HomeScreenPreviewLight() {
 //    AboutScreen(rememberNavController())
 //}
-

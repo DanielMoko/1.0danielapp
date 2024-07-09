@@ -16,15 +16,42 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Warning
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,7 +68,6 @@ import kotlinx.coroutines.delay
 import net.ezra.R
 import net.ezra.navigation.ROUTE_ABOUT
 import net.ezra.navigation.ROUTE_ADD_PRODUCT
-import net.ezra.navigation.ROUTE_DASHBOARD
 import net.ezra.navigation.ROUTE_HOME
 
 data class Screen(val title: String, val icon: Int)
@@ -54,12 +80,12 @@ data class Screen(val title: String, val icon: Int)
 fun HomeScreen(navController: NavHostController) {
     val context = LocalContext.current
     var isDrawerOpen by remember { mutableStateOf(false) }
-    val imageList = listOf(R.drawable.fire, R.drawable.flood, R.drawable.yes)
+    val imageList = listOf(R.drawable.hurry, R.drawable.flood, R.drawable.house)
     var currentIndex by remember { mutableStateOf(0) }
 
     LaunchedEffect(Unit) {
         while (true) {
-            delay(6000) // Change image every 3 seconds
+            delay(3000) // Change image every 3 seconds
             currentIndex = (currentIndex + 1) % imageList.size
         }
     }
@@ -137,46 +163,43 @@ fun HomeContent(navController: NavHostController, currentImageResId: Int, isDraw
             contentDescription = "Carousel Image"
         )
 
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.Top
         ) {
 
-//            Text(
-//                text = "What is disaster management?",
-//                fontWeight = FontWeight.ExtraBold,
-//                color = Color.Black,
-//                fontSize = 25.sp,
-//            )
-//            Spacer(modifier = Modifier.height(15.dp))
-//
-//            Text(
-//                text = "Disaster management is a critical and multifaceted field that encompasses the preparation, " +
-//                        "response, recovery, and mitigation of natural and man-made disasters. Its primary goal is " +
-//                        "to minimize the adverse effects of disasters on human lives, property, and the environment. " +
-//                        "Effective disaster management requires a coordinated effort among various stakeholders, " +
-//                        "including government agencies, non-governmental organizations, and the community."
-//            )
-           // Spacer(modifier = Modifier.height(25.dp))
-
-//            Button(
-//                modifier = Modifier,
-//                colors = ButtonDefaults.buttonColors(Color.Black),
-//                onClick = {
-//                    navController.navigate(ROUTE_DASHBOARD) {
-//                        popUpTo(ROUTE_HOME) { inclusive = true }
-//                    }
-//                }
-//            ) {
-//                Text(
-//                    modifier = Modifier.fillMaxWidth(),
-//                    color = Color.Red,
-//                    textAlign = TextAlign.Center,
-//                    text = "Continue.."
-//                )
-//            }
+            item {
+                Spacer(modifier = Modifier
+                    .height(50.dp))
+                Card(
+                    colors = CardDefaults.cardColors(Color.LightGray),
+                    shape = RoundedCornerShape(20.dp),
+                    elevation = CardDefaults.cardElevation(10.dp),
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth()
+                ) {
+                    Column(
+                        modifier = Modifier.padding(16.dp)
+                    ) {
+                        Text(
+                            text = "What is disaster management?",
+                            fontWeight = FontWeight.ExtraBold,
+                            color = Color.Black,
+                            fontSize = 25.sp,
+                        )
+                        Spacer(modifier = Modifier.height(15.dp))
+                        Text(
+                            text = "Disaster management is a critical and multifaceted field that encompasses the preparation, " +
+                                    "response, recovery, and mitigation of natural and man-made disasters. Its primary goal is " +
+                                    "to minimize the adverse effects of disasters on human lives, property, and the environment."
+                        )
+                    }
+                }
+            }
+            // Add more items to the LazyColumn if needed
         }
     }
 }
@@ -241,8 +264,9 @@ fun BottomBar(navController: NavHostController) {
         BottomNavigationItem(
             icon = { Icon(imageVector = Icons.Default.Info, "", tint = Color.White) },
             label = { Text(text = "More info", color = Color.White) },
-            selected = (selectedIndex.value == 1),
+            selected = (selectedIndex.value == 0),
             onClick = {
+                selectedIndex.value = 0
                 navController.navigate(ROUTE_ABOUT) {
                     popUpTo(ROUTE_HOME) { inclusive = true }
                 }
@@ -251,8 +275,9 @@ fun BottomBar(navController: NavHostController) {
         BottomNavigationItem(
             icon = { Icon(imageVector = Icons.Default.Warning, "", tint = Color.White) },
             label = { Text(text = "Talk to us", color = Color.White) },
-            selected = (selectedIndex.value == 2),
+            selected = (selectedIndex.value == 1),
             onClick = {
+                selectedIndex.value = 1
                 navController.navigate(ROUTE_ADD_PRODUCT) {
                     popUpTo(ROUTE_HOME) { inclusive = true }
                 }
@@ -260,6 +285,22 @@ fun BottomBar(navController: NavHostController) {
         )
     }
 }
+
+//            Button(
+//                modifier = Modifier,
+//                colors = ButtonDefaults.buttonColors(Color.Black),
+//                onClick = {
+//                    navController.navigate(ROUTE_DASHBOARD) {
+//                 popUpTo(ROUTE_HOME) { inclusive = true }
+//                    }
+//                }
+//            ) {
+//                Text(
+//                    modifier = Modifier.fillMaxWidth(),
+//                    color = Color.Red,
+//                    textAlign = TextAlign.Center,
+//                    text = "Continue.."
+//                )
 
 //package net.ezra.ui.home
 //
