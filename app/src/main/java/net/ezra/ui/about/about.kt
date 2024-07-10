@@ -137,9 +137,9 @@ fun AboutScreen(navController: NavHostController) {
         Image(
             modifier = Modifier
                 .fillMaxSize(),
-            contentScale = ContentScale.Fit,
+            contentScale = ContentScale.Crop,
 
-            painter = painterResource(id = R.drawable.cloud),
+            painter = painterResource(id = R.drawable.stream),
             contentDescription = "image"
         )
         LazyColumn {

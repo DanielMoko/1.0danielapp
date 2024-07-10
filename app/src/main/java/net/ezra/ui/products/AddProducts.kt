@@ -8,20 +8,33 @@
 //import androidx.activity.result.contract.ActivityResultContracts
 //import androidx.compose.foundation.Image
 //import androidx.compose.foundation.background
-//import androidx.compose.foundation.clickable
-//import androidx.compose.foundation.layout.*
+//import androidx.compose.foundation.layout.Box
+//import androidx.compose.foundation.layout.Spacer
+//import androidx.compose.foundation.layout.fillMaxSize
+//import androidx.compose.foundation.layout.fillMaxWidth
+//import androidx.compose.foundation.layout.height
+//import androidx.compose.foundation.layout.padding
 //import androidx.compose.foundation.lazy.LazyColumn
-//import androidx.compose.foundation.lazy.items
 //import androidx.compose.foundation.text.KeyboardActions
 //import androidx.compose.foundation.text.KeyboardOptions
-//import androidx.compose.material.*
+//import androidx.compose.material.Button
+//import androidx.compose.material.Icon
+//import androidx.compose.material.IconButton
+//import androidx.compose.material.Scaffold
+//import androidx.compose.material.Text
+//import androidx.compose.material.TextField
 //import androidx.compose.material.icons.Icons
 //import androidx.compose.material.icons.automirrored.filled.ArrowBack
 //import androidx.compose.material3.CenterAlignedTopAppBar
 //import androidx.compose.material3.ExperimentalMaterial3Api
 //import androidx.compose.material3.TopAppBarDefaults
-//import androidx.compose.runtime.*
-//import androidx.compose.ui.*
+//import androidx.compose.runtime.Composable
+//import androidx.compose.runtime.getValue
+//import androidx.compose.runtime.mutableStateOf
+//import androidx.compose.runtime.remember
+//import androidx.compose.runtime.setValue
+//import androidx.compose.ui.Alignment
+//import androidx.compose.ui.Modifier
 //import androidx.compose.ui.graphics.Color
 //import androidx.compose.ui.text.input.KeyboardType
 //import androidx.compose.ui.unit.dp
@@ -29,14 +42,11 @@
 //import androidx.navigation.NavController
 //import coil.compose.rememberImagePainter
 //import com.google.firebase.firestore.ktx.firestore
-//import com.google.firebase.firestore.ktx.toObject
 //import com.google.firebase.ktx.Firebase
 //import com.google.firebase.storage.ktx.storage
-//import kotlinx.coroutines.tasks.await
-//import net.ezra.navigation.ROUTE_ADD_PRODUCT
 //import net.ezra.navigation.ROUTE_HOME
 //import net.ezra.navigation.ROUTE_VIEW_PROD
-//import java.util.*
+//import java.util.UUID
 //
 //@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 //@OptIn(ExperimentalMaterial3Api::class)
@@ -89,31 +99,6 @@
 //                    .background(Color(0xff9AEDC9))
 //            ) {
 //                item {
-//
-//                    Spacer(modifier = Modifier.height(16.dp))
-//                    TextField(
-//                        value = productName,
-//                        onValueChange = { productName = it },
-//                        label = { Text("Product Name") },
-//                        modifier = Modifier.fillMaxWidth()
-//                    )
-//                    Spacer(modifier = Modifier.height(8.dp))
-//                    TextField(
-//                        value = productDescription,
-//                        onValueChange = { productDescription = it },
-//                        label = { Text("Product Description") },
-//                        modifier = Modifier.fillMaxWidth()
-//                    )
-//                    Spacer(modifier = Modifier.height(8.dp))
-//                    TextField(
-//                        value = productPrice,
-//                        onValueChange = { productPrice = it },
-//                        label = { Text("Product Price") },
-//                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-//                        keyboardActions = KeyboardActions(onDone = { /* Handle Done action */ }),
-//                        modifier = Modifier.fillMaxWidth()
-//                    )
-//                    Spacer(modifier = Modifier.height(16.dp))
 //                    if (productImageUri != null) {
 //                        // Display selected image
 //                        Image(
@@ -138,6 +123,31 @@
 //                    Button(onClick = { launcher.launch("image/*") }) {
 //                        Text("Select Image")
 //                    }
+//                    Spacer(modifier = Modifier.height(16.dp))
+//                    TextField(
+//                        value = productName,
+//                        onValueChange = { productName = it },
+//                        label = { Text("Product Name") },
+//                        modifier = Modifier.fillMaxWidth()
+//                    )
+//                    Spacer(modifier = Modifier.height(8.dp))
+//                    TextField(
+//                        value = productDescription,
+//                        onValueChange = { productDescription = it },
+//                        label = { Text("Product Description") },
+//                        modifier = Modifier.fillMaxWidth()
+//                    )
+//                    Spacer(modifier = Modifier.height(8.dp))
+//                    TextField(
+//                        value = productPrice,
+//                        onValueChange = { productPrice = it },
+//                        label = { Text("Product Price") },
+//                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+//                        keyboardActions = KeyboardActions(onDone = { /* Handle Done action */ }),
+//                        modifier = Modifier.fillMaxWidth()
+//                    )
+//                    Spacer(modifier = Modifier.height(16.dp))
+//
 //                    if (productNameError) {
 //                        Text("Product Name is required", color = Color.Red)
 //                    }
@@ -251,58 +261,57 @@
 //            // Handle failure to upload image
 //        }
 //}
-
-
-
-
-
 package net.ezra.ui.products
 
 import android.annotation.SuppressLint
 import android.net.Uri
-import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.runtime.*
-import androidx.compose.ui.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import kotlinx.coroutines.tasks.await
 import net.ezra.R
-import net.ezra.navigation.ROUTE_ADD_PRODUCT
 import net.ezra.navigation.ROUTE_HOME
-import net.ezra.navigation.ROUTE_VIEW_PROD
-import java.util.*
+import java.util.UUID
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -348,11 +357,19 @@ fun AddProductScreen(navController: NavController, onProductAdded: () -> Unit) {
                 )
             )
         },
-        content = {
+
+
+
+                content = {
+                    Image(
+                        modifier = Modifier
+                        .fillMaxSize(),
+                    contentScale = ContentScale.Crop,
+                        painter = painterResource(id = R.drawable.dark), contentDescription = "image")
             LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.White),
+                    .fillMaxSize(),
+                    //.background(Color.White),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
@@ -475,7 +492,7 @@ fun AddProductScreen(navController: NavController, onProductAdded: () -> Unit) {
                             .fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(Color.Gray)
                     ) {
-                        Text("Add product")
+                        Text("Submit")
                     }
                 }
             }

@@ -80,7 +80,7 @@ data class Screen(val title: String, val icon: Int)
 fun HomeScreen(navController: NavHostController) {
     val context = LocalContext.current
     var isDrawerOpen by remember { mutableStateOf(false) }
-    val imageList = listOf(R.drawable.hurry, R.drawable.flood, R.drawable.house)
+    val imageList = listOf(R.drawable.hill, R.drawable.star, R.drawable.house)
     var currentIndex by remember { mutableStateOf(0) }
 
     LaunchedEffect(Unit) {
@@ -172,7 +172,7 @@ fun HomeContent(navController: NavHostController, currentImageResId: Int, isDraw
 
             item {
                 Spacer(modifier = Modifier
-                    .height(50.dp))
+                    .height(70.dp))
                 Card(
                     colors = CardDefaults.cardColors(Color.LightGray),
                     shape = RoundedCornerShape(20.dp),
@@ -198,6 +198,23 @@ fun HomeContent(navController: NavHostController, currentImageResId: Int, isDraw
                         )
                     }
                 }
+
+//            Button(
+//                modifier = Modifier,
+//                colors = ButtonDefaults.buttonColors(Color.Black),
+//                onClick = {
+//                    navController.navigate(ROUTE_VIEW_PROD ) {
+//                 popUpTo(ROUTE_HOME) { inclusive = true }
+//                    }
+//                }
+//            ) {
+//                Text(
+//                    modifier = Modifier.fillMaxWidth(),
+//                    color = Color.Red,
+//                    textAlign = TextAlign.Center,
+//                    text = "Continue.."
+//                )}
+
             }
             // Add more items to the LazyColumn if needed
         }
@@ -285,22 +302,6 @@ fun BottomBar(navController: NavHostController) {
         )
     }
 }
-
-//            Button(
-//                modifier = Modifier,
-//                colors = ButtonDefaults.buttonColors(Color.Black),
-//                onClick = {
-//                    navController.navigate(ROUTE_DASHBOARD) {
-//                 popUpTo(ROUTE_HOME) { inclusive = true }
-//                    }
-//                }
-//            ) {
-//                Text(
-//                    modifier = Modifier.fillMaxWidth(),
-//                    color = Color.Red,
-//                    textAlign = TextAlign.Center,
-//                    text = "Continue.."
-//                )
 
 //package net.ezra.ui.home
 //
