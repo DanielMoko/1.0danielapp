@@ -32,8 +32,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
@@ -71,7 +69,6 @@ import net.ezra.R
 import net.ezra.navigation.ROUTE_ABOUT
 import net.ezra.navigation.ROUTE_ADD_PRODUCT
 import net.ezra.navigation.ROUTE_HOME
-import net.ezra.navigation.ROUTE_VIEW_PROD
 
 data class Screen(val title: String, val icon: Int)
 
@@ -202,23 +199,23 @@ fun HomeContent(navController: NavHostController, currentImageResId: Int, isDraw
                     }
                 }
 
-            Button(
-                modifier = Modifier,
-                colors = ButtonDefaults.buttonColors(Color.Black),
-                onClick = {
-                    navController.navigate(ROUTE_VIEW_PROD ) {
-                 popUpTo(ROUTE_HOME) { inclusive = true }
-                    }
-                }
-            ) {
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    color = Color.Red,
-                    textAlign = TextAlign.Center,
-                    text = "Continue.."
-                )}
-
-            }
+//            Button(
+//                modifier = Modifier,
+//                colors = ButtonDefaults.buttonColors(Color.Black),
+//                onClick = {
+//                    navController.navigate(ROUTE_VIEW_PROD ) {
+//                 popUpTo(ROUTE_HOME) { inclusive = true }
+//                    }
+//                }
+//            ) {
+//                Text(
+//                    modifier = Modifier.fillMaxWidth(),
+//                    color = Color.Red,
+//                    textAlign = TextAlign.Center,
+//                    text = "Continue.."
+//                )}
+//
+           }
             // Add more items to the LazyColumn if needed
         }
     }
