@@ -35,6 +35,7 @@ import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -69,6 +70,7 @@ import net.ezra.R
 import net.ezra.navigation.ROUTE_ABOUT
 import net.ezra.navigation.ROUTE_ADD_PRODUCT
 import net.ezra.navigation.ROUTE_HOME
+import net.ezra.navigation.ROUTE_VIEW_PROD
 
 data class Screen(val title: String, val icon: Int)
 
@@ -197,9 +199,7 @@ fun HomeContent(navController: NavHostController, currentImageResId: Int, isDraw
                                     "to minimize the adverse effects of disasters on human lives, property, and the environment."
                         )
                     }
-                }
-
-//            Button(
+//                                Button(
 //                modifier = Modifier,
 //                colors = ButtonDefaults.buttonColors(Color.Black),
 //                onClick = {
@@ -214,7 +214,9 @@ fun HomeContent(navController: NavHostController, currentImageResId: Int, isDraw
 //                    textAlign = TextAlign.Center,
 //                    text = "Continue.."
 //                )}
-//
+                }
+
+
            }
             // Add more items to the LazyColumn if needed
         }
@@ -300,9 +302,21 @@ fun BottomBar(navController: NavHostController) {
                 }
             }
         )
+        BottomNavigationItem(
+            icon = { Icon(imageVector = Icons.Default.MoreVert, "", tint = Color.White) },
+            label = { Text(text = "Your data", color = Color.White) },
+            selected = (selectedIndex.value == 1),
+            onClick = {
+                selectedIndex.value = 1
+                navController.navigate(ROUTE_VIEW_PROD) {
+                    popUpTo(ROUTE_HOME) { inclusive = true }
+                }
+            }
+        )
     }
 }
 
+//
 //package net.ezra.ui.home
 //
 //
