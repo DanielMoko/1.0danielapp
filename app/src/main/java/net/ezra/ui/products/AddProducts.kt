@@ -24,7 +24,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
@@ -45,7 +44,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import net.ezra.navigation.ROUTE_HOME
-import net.ezra.navigation.ROUTE_VIEW_PROD
 import java.util.UUID
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -87,16 +85,7 @@ fun AddProductScreen(navController: NavController, onProductAdded: () -> Unit) {
                     }
 
 
-                            IconButton(onClick = { navController.navigate(ROUTE_VIEW_PROD ) {
-              popUpTo(ROUTE_HOME) { inclusive = true } } }) {
-                                Icon(
-                                    imageVector = Icons.Default.MoreVert,
-                                    contentDescription = "Menu",
-                                    tint = Color.White
-                                )
 
-
-                    }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color(0xFF2A312E),
